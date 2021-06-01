@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\VehicleCheckedIn;
 use App\Events\VehicleCheckedOut;
 use App\Http\Requests\StoreCheckinRequest;
+use App\Http\Resources\CheckinResource;
 use App\Models\Checkin;
 use App\Models\Checkout;
 use App\Models\Vehicle;
@@ -35,8 +36,9 @@ class CheckinController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCheckinRequest $request
+     *
+     * @return CheckinResource
      */
     public function store(StoreCheckinRequest $request)
     {
@@ -53,7 +55,7 @@ class CheckinController extends Controller
 
         VehicleCheckedIn::dispatch($vehicle);
 
-        return $checkin;
+        return new CheckinResource($checkin);
     }
 
     /**
@@ -81,8 +83,9 @@ class CheckinController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param  int    $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

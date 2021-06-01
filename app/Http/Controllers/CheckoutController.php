@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\VehicleCheckedOut;
 use App\Http\Requests\StoreCheckoutRequest;
+use App\Http\Resources\CheckoutResource;
 use App\Models\Checkout;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
      *
      * @param StoreCheckoutRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return CheckoutResource
      */
     public function store(StoreCheckoutRequest $request)
     {
@@ -46,7 +47,7 @@ class CheckoutController extends Controller
         $checkout->save();
         VehicleCheckedOut::dispatch($vehicle);
 
-        return $checkout;
+        return new CheckoutResource($checkout);
     }
 
     /**
