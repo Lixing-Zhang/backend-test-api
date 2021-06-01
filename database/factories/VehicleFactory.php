@@ -22,7 +22,13 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'vin' => $this->faker->bankAccountNumber,
+            'make' => collect(['bmw', 'benz', 'audi'])->shuffle()->first(),
+            'model' => collect(['x1', 'x5', 'a4', 'a8'])->shuffle()->first(),
+            'year' => $this->faker->year,
+            'colour' => $this->faker->colorName,
+            'body_type' => collect(['sedan', 'suv', 'hatch', 'ute', 'wagon'])->shuffle()->first(),
+            'status' =>  Vehicle::STATUS_AVAILABLE,
         ];
     }
 }

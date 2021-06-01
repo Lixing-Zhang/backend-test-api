@@ -15,6 +15,13 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->string('vin')->unique();
+            $table->string('make');
+            $table->string('model');
+            $table->unsignedSmallInteger('year');
+            $table->string('body_type');
+            $table->string('colour');
+            $table->string('status');
             $table->timestamps();
         });
     }
